@@ -7,7 +7,7 @@ export const NewsProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [newsType, setNewsType] = useState("everything?q=tesla&");
   const [post, setPost] = useState();
-  const [selectedItem, setSelectedItem] = useState("TESLA");
+  const [selectedItem, setSelectedItem] = useState("TESLA NEWS");
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -44,6 +44,12 @@ export const NewsProvider = ({ children }) => {
     setCurrentPage(1);
     setSelectedItem(tab);
   };
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+  const handleNext = () => {
+    if (currentPage < newsList.length / 10) setCurrentPage(currentPage + 1);
+  };
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -61,6 +67,8 @@ export const NewsProvider = ({ children }) => {
         currentPage,
         selectedItem,
         handlePageChange,
+        handlePrev,
+        handleNext,
         handleType,
         getCurrentNews,
       }}
