@@ -15,10 +15,6 @@ function News(props) {
   if (isLoading) return <Spinner />;
   return (
     <div>
-      <div className="App">
-        <FilterTab />
-        <h1 className="text-3xl font-bold underline">News O'Clock!</h1>
-      </div>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap -m-4">
