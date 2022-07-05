@@ -3,11 +3,12 @@ import NewsContext from "./NewsContext/NewsContext";
 function FilterTab() {
   const { handleType, selectedItem } = useContext(NewsContext);
   const columns = [
-    { name: "TESLA NEWS", path: "everything?q=tesla&" },
-    { name: "APPLE NEWS", path: "everything?q=Apple&" },
-    { name: "BBC NEWS", path: "top-headlines?sources=bbc-news&" },
-    { name: "USA", path: "top-headlines?country=us&" },
-    { name: "TECHCRUNCH", path: "top-headlines?sources=techcrunch&" },
+    { name: "TECHNOLOGY", path: "&category=technology" },
+    { name: "BUSINESS", path: "&category=business" },
+    { name: "POLITICS", path: "&category=politics" },
+    { name: "ENTERTAINMENT", path: "&category=entertainment" },
+    { name: "SPORT", path: "&category=sports" },
+    { name: "HEALTH", path: "&category=health" },
   ];
   return (
     <ul className="list-group d-flex flex-row justify-content-center flex-wrap">

@@ -5,44 +5,33 @@ const NewsContext = createContext();
 export const NewsProvider = ({ children }) => {
   const [newsList, setNewsList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [newsType, setNewsType] = useState("everything?q=tesla&");
+  const [newsType, setNewsType] = useState("&category=technology");
   const [post, setPost] = useState();
-  const [selectedItem, setSelectedItem] = useState("TESLA NEWS");
+  const [selectedItem, setSelectedItem] = useState("TECHNOLOGY");
   const [currentPage, setCurrentPage] = useState(1);
-
+  const apiEndPoint = process.env.REACT_APP_NEWS_URL;
+  const apikey = process.env.REACT_APP_NEWS_API_KEY;
   useEffect(() => {
-    fetchNews();
+    fetchNews(newsType);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const fetchNews = async () => {
-    const apiEndPoint = "https://newsapi.org/v2/";
-    const type = newsType;
-    const order = "sortBy=popularity&";
-    const apiKey = "apiKey=3ebd450c552e4557b340d1910a1d9358";
-    // const apiKey = "apiKey=3ebd450c552e4557b340d1910a1d9359";
-    // var url =
-    //   "https://newsapi.org/v2/everything?" +
-    //   "q=Apple&" +
-    //   "from=2022-06-30&" +
-    //   "sortBy=popularity&" +
-    //   "apiKey=010ae3372b164a02a8696362a3af05ed";
-    var url2 = `${apiEndPoint}${type}${order}${apiKey}`;
-    const response = await fetch(url2);
-    const { articles } = await response.json();
-    articles.map((article) => {
-      article.id = uuidv4();
-    });
+  const fetchNews = async (newsType) => {
+    const url1 = `${apiEndPoint}?apikey=${apikey}${newsType}&language=en`;
+    const response = await fetch(url1);
+    const { results } = await response.json();
+    results.map((article) => (article.id = uuidv4()));
+    setNewsList(results);
     setIsLoading(false);
-    setNewsList(articles);
   };
 
-  const handleType = (tab, path) => {
+  const handleType = async (tab, path) => {
+    setSelectedItem(tab);
     setIsLoading(true);
     setNewsType(path);
     setNewsType(path);
-    setIsLoading(false);
-    fetchNews();
+    await fetchNews(newsType);
     setCurrentPage(1);
-    setSelectedItem(tab);
+    setIsLoading(false);
   };
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
