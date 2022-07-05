@@ -14,7 +14,7 @@ function Pagination(props) {
       <ul className="pagination flex-wrap">
         <li className="page-item page-link clickable">
           <span onClick={handlePrev}>
-            git <FaArrowLeft />
+            <FaArrowLeft />
           </span>
         </li>
         {pages.map((page) => (
